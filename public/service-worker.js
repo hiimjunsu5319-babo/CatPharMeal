@@ -1,10 +1,11 @@
-const cacheName = "gayaak-meal-v11";
+const cacheName = "gayaak-meal-v12";
 const files = [
   "./",
   "./index.html",
-  "./styles.css?v=20260611-2",
-  "./api-config.js?v=20260611-3",
-  "./app.js?v=20260611-3",
+  "./styles.css?v=20260611-4",
+  "./api-config.js?v=20260611-4",
+  "./app.js?v=20260611-4",
+  "./catholic-logo.svg",
   "./manifest.json",
   "./icon.svg",
 ];

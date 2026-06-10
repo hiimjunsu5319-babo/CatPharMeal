@@ -10,7 +10,23 @@
   --green-dark: #165c45;
   --berry: #e85d75;
   --line: rgba(94, 68, 45, 0.16);
+  --shell-shadow: rgba(99, 75, 52, 0.16);
   font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #f8efe2;
+  --muted: #cbbba9;
+  --paper: #211c1a;
+  --cream: #2b2420;
+  --peach: #6d4638;
+  --mint: #254b3f;
+  --green: #70d0ac;
+  --green-dark: #a9efd2;
+  --berry: #ff8fa3;
+  --line: rgba(255, 244, 229, 0.18);
+  --shell-shadow: rgba(0, 0, 0, 0.36);
 }
 
 * {
@@ -25,6 +41,13 @@ body {
     radial-gradient(circle at 15% 12%, rgba(255, 217, 189, 0.72), transparent 26%),
     radial-gradient(circle at 88% 10%, rgba(204, 235, 220, 0.84), transparent 28%),
     linear-gradient(180deg, #fff8e7 0%, #fff2dd 45%, #f6efe8 100%);
+}
+
+body[data-theme="dark"] {
+  background:
+    radial-gradient(circle at 16% 10%, rgba(109, 70, 56, 0.56), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(37, 75, 63, 0.62), transparent 30%),
+    linear-gradient(180deg, #161514 0%, #201b18 48%, #151716 100%);
 }
 
 button,
@@ -75,10 +98,61 @@ button:disabled,
 }
 
 .app-shell {
+  position: relative;
   width: min(100%, 520px);
   min-height: 100vh;
   margin: 0 auto;
   padding: max(22px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom));
+}
+
+.theme-toggle {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  right: 18px;
+  width: 58px;
+  height: 34px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 24px var(--shell-shadow);
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 7px 9px auto auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #8fb8ff;
+  opacity: 0.9;
+}
+
+.theme-toggle-knob {
+  width: 24px;
+  height: 24px;
+  display: block;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 2px 7px rgba(46, 39, 31, 0.28);
+  transform: translateX(0);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+body[data-theme="dark"] .theme-toggle {
+  background: rgba(40, 36, 34, 0.88);
+}
+
+body[data-theme="dark"] .theme-toggle::before {
+  left: 10px;
+  right: auto;
+  background: #ffd26a;
+}
+
+body[data-theme="dark"] .theme-toggle-knob {
+  background: #444b59;
+  transform: translateX(24px);
 }
 
 .home-view,
@@ -121,7 +195,7 @@ h1 {
   width: 100%;
   min-height: 122px;
   display: grid;
-  grid-template-columns: 58px 1fr 28px;
+  grid-template-columns: 70px 1fr 28px;
   align-items: center;
   gap: 14px;
   padding: 20px;
@@ -130,7 +204,7 @@ h1 {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(255, 243, 215, 0.9)),
     linear-gradient(135deg, var(--peach), var(--mint));
-  box-shadow: 0 18px 48px rgba(99, 75, 52, 0.16);
+  box-shadow: 0 18px 48px var(--shell-shadow);
   color: var(--ink);
   text-align: left;
 }
@@ -141,14 +215,21 @@ h1 {
 }
 
 .school-badge {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 48px;
   display: grid;
   place-items: center;
-  border-radius: 18px;
+  border-radius: 12px;
   background: white;
   box-shadow: inset 0 -3px 0 rgba(232, 93, 117, 0.16);
-  font-size: 30px;
+  overflow: hidden;
+}
+
+.school-badge img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .school-card strong {
@@ -178,7 +259,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 12px 34px rgba(99, 75, 52, 0.1);
+  box-shadow: 0 12px 34px var(--shell-shadow);
 }
 
 .fortune-editor label {
@@ -206,6 +287,10 @@ h1 {
   outline: none;
 }
 
+body[data-theme="dark"] .fortune-input-row input {
+  background: #25211f;
+}
+
 .fortune-input-row input:focus {
   border-color: rgba(232, 93, 117, 0.55);
   box-shadow: 0 0 0 4px rgba(232, 93, 117, 0.12);
@@ -226,6 +311,10 @@ h1 {
   color: var(--green-dark);
   box-shadow: 0 8px 20px rgba(99, 75, 52, 0.08);
   font-weight: 900;
+}
+
+body[data-theme="dark"] .fortune-draw-button {
+  background: linear-gradient(135deg, #262220, #254237);
 }
 
 .topbar {
@@ -273,7 +362,7 @@ h1 {
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.76);
   color: var(--green-dark);
-  box-shadow: 0 8px 20px rgba(99, 75, 52, 0.09);
+  box-shadow: 0 8px 20px var(--shell-shadow);
   font-size: 25px;
   font-weight: 900;
 }
@@ -291,7 +380,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.74);
-  box-shadow: 0 10px 30px rgba(99, 75, 52, 0.08);
+  box-shadow: 0 10px 30px var(--shell-shadow);
 }
 
 .summary strong {
@@ -321,7 +410,7 @@ h1 {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.74);
   color: var(--ink);
-  box-shadow: 0 10px 24px rgba(99, 75, 52, 0.08);
+  box-shadow: 0 10px 24px var(--shell-shadow);
   font-weight: 900;
 }
 
@@ -329,6 +418,10 @@ h1 {
   border-color: rgba(36, 133, 101, 0.5);
   background: linear-gradient(135deg, #ffffff, #dff4e9);
   color: var(--green-dark);
+}
+
+body[data-theme="dark"] .restaurant-tabs button.is-active {
+  background: linear-gradient(135deg, #262220, #26483c);
 }
 
 .restaurant-tabs button:active,
@@ -373,6 +466,10 @@ h1 {
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.62);
   text-align: center;
+}
+
+body[data-theme="dark"] .empty-state {
+  background: rgba(30, 27, 25, 0.7);
 }
 
 .empty-state strong {
@@ -422,6 +519,16 @@ h1 {
   color: var(--ink);
 }
 
+body[data-theme="dark"] .school-card,
+body[data-theme="dark"] .fortune-editor,
+body[data-theme="dark"] .icon-button,
+body[data-theme="dark"] .summary,
+body[data-theme="dark"] .restaurant-tabs button,
+body[data-theme="dark"] .secondary-button,
+body[data-theme="dark"] .fortune-text {
+  background: rgba(38, 34, 31, 0.78);
+}
+
 @keyframes pop-in {
   from {
     opacity: 0;
@@ -458,7 +565,7 @@ h1 {
   }
 
   .school-card {
-    grid-template-columns: 52px 1fr 22px;
+    grid-template-columns: 64px 1fr 22px;
     padding: 16px;
   }
 }

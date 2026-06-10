@@ -6,12 +6,22 @@ const fortuneMessages = [
   "든든히 먹고 천천히 빛나면 돼",
   "오늘의 너에게 맛있는 행운이 갈 거야",
   "좋은 선택이 좋은 하루를 데려올 거야",
+  "밥 먹는 시간만큼은 마음이 편해질 거야",
+  "오늘은 네가 좋아하는 맛을 만날 거야",
+  "한 숟갈의 기운이 오후를 지켜줄 거야",
+  "천천히 골라도 좋은 메뉴가 기다릴 거야",
+  "맛있는 점심이 너를 반겨줄 거야",
+  "오늘의 식판에는 작은 즐거움이 담길 거야",
+  "든든한 한 끼가 좋은 생각을 데려올 거야",
+  "너에게 꼭 맞는 메뉴가 눈에 들어올 거야",
+  "잘 먹고 잘 쉬면 오늘도 괜찮아질 거야",
 ];
 
 const state = {
   restaurants: [],
   selectedId: localStorage.getItem("selectedRestaurant") || "buon",
   fortune: localStorage.getItem("fortuneMessage") || "",
+  theme: localStorage.getItem("themeMode") || "light",
 };
 
 const apiBase = (window.GAYAAK_API_BASE || "").replace(/\/$/, "");
@@ -19,6 +29,7 @@ const apiBase = (window.GAYAAK_API_BASE || "").replace(/\/$/, "");
 const refs = {
   homeView: document.querySelector("#homeView"),
   mealView: document.querySelector("#mealView"),
+  themeToggle: document.querySelector("#themeToggle"),
   catholicCard: document.querySelector("#catholicCard"),
   fortuneInput: document.querySelector("#fortuneInput"),
   fortuneSaveButton: document.querySelector("#fortuneSaveButton"),
@@ -151,7 +162,7 @@ function renderTabs() {
     button.disabled = !restaurant.available;
     button.className = restaurant.id === state.selectedId ? "is-active" : "";
     button.innerHTML = `
-      <span class="tab-icon">${restaurant.id === "buon" ? "🍽" : "☕"}</span>
+      <span class="tab-icon">🍱</span>
       <span>${restaurant.label}</span>
     `;
     button.addEventListener("click", () => selectRestaurant(restaurant.id));
@@ -213,6 +224,19 @@ function apiUrl(path) {
   return `${apiBase}${path}`;
 }
 
+function applyTheme() {
+  document.body.dataset.theme = state.theme;
+  const isDark = state.theme === "dark";
+  refs.themeToggle.setAttribute("aria-pressed", String(isDark));
+  refs.themeToggle.setAttribute("aria-label", isDark ? "라이트모드 켜기" : "다크모드 켜기");
+}
+
+function toggleTheme() {
+  state.theme = state.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("themeMode", state.theme);
+  applyTheme();
+}
+
 function openMealView() {
   refs.homeView.hidden = true;
   refs.mealView.hidden = false;
@@ -251,6 +275,7 @@ function clearPressFeedback() {
   });
 }
 
+refs.themeToggle.addEventListener("click", toggleTheme);
 refs.catholicCard.addEventListener("click", openMealView);
 refs.backButton.addEventListener("click", openHomeView);
 refs.refreshButton.addEventListener("click", () => loadRestaurants(true));
@@ -266,6 +291,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js").catch(() => {});
 }
 
+applyTheme();
 refs.weekRange.textContent = getWeekRangeLabel();
 renderFortune();
 installPressFeedback();

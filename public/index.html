@@ -7,11 +7,15 @@
   <meta name="description" content="가톨릭대학교 식당의 이번 주 PDF 메뉴표를 바로 확인하는 PWA">
   <title>가약학식</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=20260611-2">
+  <link rel="stylesheet" href="styles.css?v=20260611-4">
 </head>
 <body>
   <main class="app-shell">
     <section id="homeView" class="home-view">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="다크모드 켜기" aria-pressed="false">
+        <span class="theme-toggle-knob"></span>
+      </button>
+
       <header class="home-hero">
         <p class="eyebrow">Gayaak Meal</p>
         <h1>가약학식</h1>
@@ -20,9 +24,11 @@
 
       <section class="school-list" aria-label="학교 선택">
         <button id="catholicCard" class="school-card" type="button">
-          <span class="school-badge">🍱</span>
+          <span class="school-badge">
+            <img src="catholic-logo.svg" alt="" aria-hidden="true">
+          </span>
           <span>
-            <strong>가톨릭대 급식</strong>
+            <strong>가톨릭대 학식</strong>
             <small>Buon Pranzo · Cafe Bona</small>
           </span>
           <span class="school-arrow">›</span>
@@ -32,7 +38,7 @@
       <section class="fortune-editor" aria-label="행운 문구 적기">
         <label for="fortuneInput">행운 문구 쓰기</label>
         <div class="fortune-input-row">
-          <input id="fortuneInput" type="text" maxlength="40" placeholder="예: 오늘은 내가 제일 맛있는 메뉴를 고를 차례">
+          <input id="fortuneInput" type="text" maxlength="40" placeholder="예 오늘은 내가 제일 맛있는 메뉴를 고를 차례">
           <button id="fortuneSaveButton" type="button">저장</button>
         </div>
         <button id="fortuneDrawButton" class="fortune-draw-button" type="button">행운뽑기</button>
@@ -72,7 +78,7 @@
     </section>
   </main>
 
-  <script src="api-config.js?v=20260611-3"></script>
-  <script src="app.js?v=20260611-3"></script>
+  <script src="api-config.js?v=20260611-4"></script>
+  <script src="app.js?v=20260611-4"></script>
 </body>
 </html>
