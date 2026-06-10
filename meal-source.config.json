@@ -1,0 +1,8 @@
+{
+  "sourceName": "가톨릭대학교 식당",
+  "sourceUrl": "https://www.catholic.ac.kr/ko/campuslife/restaurant.do",
+  "mode": "catholic-pdf",
+  "jsonListPath": "",
+  "jsonDateKey": "date",
+  "jsonMenuKey": "menu"
+}

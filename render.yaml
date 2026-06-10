@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: gayaak-meal
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: PUBLIC_APP_URL
+        value: https://xn--o39ap74bu0b95y.com
